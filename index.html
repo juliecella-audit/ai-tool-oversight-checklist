@@ -1,0 +1,421 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Tool Oversight Checklist</title>
+<meta name="description" content="A free, private checklist for small businesses: list the AI tools you use, see what they can touch, and find where nobody is checking their work.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f7f5f1; --surface:#ffffff; --ink:#1d2430; --muted:#5b6574; --line:#e2ddd4;
+  --accent:#2f5d62; --accent-ink:#ffffff; --accent-soft:#e3eeee;
+  --low:#2e7d4f; --low-soft:#e2f2e8; --med:#a96a00; --med-soft:#fbefd9; --high:#b3261e; --high-soft:#fae3e1;
+  --radius:12px; --shadow:0 1px 2px rgba(0,0,0,.05),0 4px 16px rgba(0,0,0,.04);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#14181e; --surface:#1c222a; --ink:#e8ebef; --muted:#9aa4b2; --line:#2c343f;
+    --accent:#7fb6bb; --accent-ink:#0f1418; --accent-soft:#1f3133;
+    --low:#6fcf97; --low-soft:#16291e; --med:#f2b94b; --med-soft:#2e2412; --high:#f28b82; --high-soft:#331a19;
+    --shadow:none;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#14181e; --surface:#1c222a; --ink:#e8ebef; --muted:#9aa4b2; --line:#2c343f;
+  --accent:#7fb6bb; --accent-ink:#0f1418; --accent-soft:#1f3133;
+  --low:#6fcf97; --low-soft:#16291e; --med:#f2b94b; --med-soft:#2e2412; --high:#f28b82; --high-soft:#331a19;
+  --shadow:none;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 Inter,system-ui,-apple-system,"Segoe UI",sans-serif}
+.wrap{max-width:960px;margin:0 auto;padding:0 16px}
+header.hero{padding:48px 0 28px}
+.eyebrow{font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);font-weight:600;margin:0 0 8px}
+h1{font-family:Fraunces,Georgia,serif;font-weight:600;font-size:clamp(1.9rem,4.5vw,2.7rem);line-height:1.15;margin:0 0 12px}
+h2{font-family:Fraunces,Georgia,serif;font-weight:600;font-size:1.35rem;margin:0 0 4px}
+h3{font-size:1rem;margin:0}
+.lede{color:var(--muted);max-width:640px;margin:0}
+.privacy{display:inline-flex;gap:8px;align-items:center;margin-top:16px;font-size:.88rem;color:var(--muted);background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:6px 14px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px;margin-bottom:20px}
+.section-head{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.section-head p{margin:0;color:var(--muted);font-size:.92rem}
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+label{display:block;font-size:.85rem;font-weight:600;margin-bottom:5px}
+.hint{font-weight:400;color:var(--muted)}
+input[type=text],input[type=date],select,textarea{width:100%;font:inherit;font-size:.95rem;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:9px 11px}
+textarea{min-height:64px;resize:vertical}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--accent);outline-offset:1px}
+fieldset{border:0;padding:0;margin:0}
+.checks{display:flex;flex-wrap:wrap;gap:8px}
+.chip{position:relative}
+.chip input{position:absolute;opacity:0}
+.chip span{display:inline-block;padding:6px 12px;border:1px solid var(--line);border-radius:999px;font-size:.88rem;cursor:pointer;background:var(--bg)}
+.chip input:checked+span{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.chip input:focus-visible+span{outline:2px solid var(--accent);outline-offset:2px}
+.btn{font:inherit;font-weight:600;font-size:.92rem;border-radius:8px;padding:9px 16px;cursor:pointer;border:1px solid var(--accent);background:var(--accent);color:var(--accent-ink)}
+.btn.ghost{background:transparent;color:var(--accent)}
+.btn.danger{background:transparent;border-color:var(--line);color:var(--muted)}
+.btn:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.full{grid-column:1/-1}
+.tool{border:1px solid var(--line);border-radius:var(--radius);padding:16px;margin-bottom:14px;background:var(--surface)}
+.tool-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}
+.tool-meta{color:var(--muted);font-size:.88rem;margin:2px 0 0}
+.badge{display:inline-block;font-size:.78rem;font-weight:600;padding:3px 10px;border-radius:999px;white-space:nowrap}
+.badge.low{background:var(--low-soft);color:var(--low)} .badge.med{background:var(--med-soft);color:var(--med)} .badge.high{background:var(--high-soft);color:var(--high)}
+.flags{margin:12px 0 0;padding:0;list-style:none}
+.flags li{font-size:.92rem;padding:8px 0;border-top:1px dashed var(--line)}
+.flags b{display:block}
+.flags small{color:var(--muted)}
+.tool-actions{display:flex;gap:8px}
+.linkbtn{background:none;border:0;color:var(--accent);font:inherit;font-size:.85rem;cursor:pointer;padding:0;text-decoration:underline}
+.empty{text-align:center;color:var(--muted);padding:28px 12px;border:1px dashed var(--line);border-radius:var(--radius)}
+.summary{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));margin-bottom:16px}
+.stat{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.stat .n{font-family:Fraunces,Georgia,serif;font-size:1.8rem;line-height:1}
+.stat .l{font-size:.82rem;color:var(--muted);margin-top:4px}
+.stat.high .n{color:var(--high)} .stat.med .n{color:var(--med)} .stat.low .n{color:var(--low)}
+.priorities{margin:0;padding-left:20px}
+.priorities li{margin-bottom:6px}
+.cta{background:var(--accent-soft);border-color:transparent}
+.cta p{margin:6px 0 14px;color:var(--ink)}
+.cta a.btn{text-decoration:none;display:inline-block}
+footer{color:var(--muted);font-size:.85rem;padding:12px 0 40px}
+footer a{color:var(--accent)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.print-only{display:none}
+@media print{
+  body{background:#fff;color:#000;font-size:12px}
+  .no-print,.tool-actions,#formCard,.cta,.privacy{display:none!important}
+  .print-only{display:block}
+  .card,.tool{box-shadow:none;border-color:#ccc;break-inside:avoid}
+  header.hero{padding:0 0 12px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <p class="eyebrow">Free small-business tool</p>
+  <h1>AI Tool Oversight Checklist</h1>
+  <p class="lede">AI tools are getting more powerful. The question an auditor asks is simple: <strong>who's checking their work?</strong> List the AI tools your business uses, answer a few plain questions about each, and see where the gaps are.</p>
+  <p class="privacy no-print">🔒 Everything stays in your browser. Nothing is sent anywhere.</p>
+</header>
+
+<section class="card">
+  <div class="section-head"><div><h2>About this review</h2><p>Shows up on your printed summary.</p></div></div>
+  <div class="grid">
+    <div><label for="bizName">Business name</label><input type="text" id="bizName" autocomplete="organization"></div>
+    <div><label for="reviewer">Reviewed by</label><input type="text" id="reviewer" autocomplete="name"></div>
+    <div><label for="reviewDate">Review date</label><input type="date" id="reviewDate"></div>
+  </div>
+</section>
+
+<section class="card" id="formCard">
+  <div class="section-head">
+    <div><h2 id="formTitle">Add an AI tool</h2><p>One tool at a time. "Not sure" is a fine answer, and an honest one.</p></div>
+  </div>
+  <form id="toolForm" novalidate>
+    <div class="grid">
+      <div><label for="f_name">Tool name</label><input type="text" id="f_name" placeholder="e.g. ChatGPT, Copilot, a custom GPT" required></div>
+      <div><label for="f_type">What kind of tool is it?</label>
+        <select id="f_type">
+          <option value="chat">Chat assistant</option>
+          <option value="custom">Custom GPT / assistant someone set up</option>
+          <option value="plugin">Plugin, extension or add-on</option>
+          <option value="agent">Agent or automation that takes actions</option>
+          <option value="builtin">AI feature built into software we already use</option>
+        </select></div>
+      <div class="full"><label for="f_use">What do you use it for?</label><input type="text" id="f_use" placeholder="e.g. drafting customer emails, summarizing invoices"></div>
+
+      <fieldset class="full">
+        <legend style="font-size:.85rem;font-weight:600;margin-bottom:5px;padding:0">What information can it see? <span class="hint">(check all that apply)</span></legend>
+        <div class="checks" id="f_data">
+          <label class="chip"><input type="checkbox" value="customer"><span>Customer info</span></label>
+          <label class="chip"><input type="checkbox" value="financial"><span>Financial records</span></label>
+          <label class="chip"><input type="checkbox" value="employee"><span>Employee info</span></label>
+          <label class="chip"><input type="checkbox" value="accounts"><span>Passwords or account access</span></label>
+          <label class="chip"><input type="checkbox" value="internal"><span>Internal documents</span></label>
+          <label class="chip"><input type="checkbox" value="unknown"><span>Not sure</span></label>
+        </div>
+      </fieldset>
+
+      <div><label for="f_auto">What can it do on its own?</label>
+        <select id="f_auto">
+          <option value="read">Only answers questions</option>
+          <option value="draft">Drafts things a person approves</option>
+          <option value="act">Sends, posts, edits or pays without asking</option>
+          <option value="unknown">Not sure</option>
+        </select></div>
+      <div><label for="f_review">How often does a person check its output?</label>
+        <select id="f_review">
+          <option value="always">Every time</option>
+          <option value="spot">Spot checks (weekly-ish)</option>
+          <option value="rare">Rarely</option>
+          <option value="never">Never / not sure</option>
+        </select></div>
+      <div><label for="f_owner">Who is responsible for it?</label><input type="text" id="f_owner" placeholder="A name, or leave blank"></div>
+      <div><label for="f_acct">Whose account is it on?</label>
+        <select id="f_acct">
+          <option value="business">Business account</option>
+          <option value="personal">Someone's personal account</option>
+          <option value="unknown">Not sure</option>
+        </select></div>
+      <div><label for="f_perm">Last time anyone checked its permissions or settings</label>
+        <select id="f_perm">
+          <option value="recent">In the last 3 months</option>
+          <option value="year">3–12 months ago</option>
+          <option value="never">Over a year / never</option>
+        </select></div>
+      <div><label for="f_off">Could you turn it off quickly if it went wrong?</label>
+        <select id="f_off">
+          <option value="yes">Yes, and we know how</option>
+          <option value="maybe">Probably, but not sure how</option>
+          <option value="no">No / not sure</option>
+        </select></div>
+      <div class="full"><label for="f_notes">Notes <span class="hint">(optional)</span></label><textarea id="f_notes"></textarea></div>
+    </div>
+    <div class="row" style="margin-top:16px">
+      <button class="btn" type="submit" id="saveBtn">Add tool</button>
+      <button class="btn ghost" type="button" id="cancelEdit" hidden>Cancel edit</button>
+      <span id="formMsg" class="hint" role="status"></span>
+    </div>
+  </form>
+</section>
+
+<section class="card">
+  <div class="section-head">
+    <div><h2>Results</h2><p id="resultsSub">Add a tool to see its oversight score.</p></div>
+    <div class="row no-print">
+      <button class="btn ghost" type="button" id="printBtn">Print / save PDF</button>
+      <button class="btn ghost" type="button" id="exportBtn">Export</button>
+      <button class="btn ghost" type="button" id="importBtn">Import</button>
+      <input type="file" id="importFile" accept="application/json" class="sr" tabindex="-1">
+    </div>
+  </div>
+  <p class="print-only" id="printHeader"></p>
+  <div id="summary"></div>
+  <div id="toolList"></div>
+  <div class="row no-print" style="justify-content:flex-end"><button class="btn danger" type="button" id="clearBtn">Clear everything</button></div>
+</section>
+
+<section class="card cta no-print">
+  <h2>Want a second set of eyes?</h2>
+  <p>I'm Julie Cella. I've spent much of my career in auditing, and now I help small businesses use AI without losing track of it. Bring this checklist to a 1:1 AI Checkup and we'll turn your red flags into a short, doable plan.</p>
+  <a class="btn" href="https://juliecella.com" target="_blank" rel="noopener">Book an AI Checkup</a>
+</section>
+
+<footer>
+  <p>Built by <a href="https://juliecella.com" target="_blank" rel="noopener">Julie Cella</a> · Companion to <a href="https://juliecella.com/2026/11/01/ai-agents-who-is-checking-their-work/" target="_blank" rel="noopener">“AI Agents Are Getting More Powerful. Who's Checking Their Work?”</a></p>
+  <p>This is a self-check, not a formal audit or legal advice. Scores are a starting point for a conversation.</p>
+</footer>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var STORE = "jc-ai-oversight-v1";
+  var DATA_LABELS = {customer:"Customer info",financial:"Financial records",employee:"Employee info",accounts:"Passwords or account access",internal:"Internal documents",unknown:"Not sure"};
+  var TYPE_LABELS = {chat:"Chat assistant",custom:"Custom GPT / assistant",plugin:"Plugin or add-on",agent:"Agent / automation",builtin:"Built-in AI feature"};
+  var AUTO_LABELS = {read:"Only answers questions",draft:"Drafts for approval",act:"Acts on its own",unknown:"Not sure what it can do"};
+
+  var state = {meta:{biz:"",reviewer:"",date:""}, tools:[]};
+  var editingId = null;
+
+  // ---------- storage (best effort) ----------
+  function load(){
+    try{ var raw = localStorage.getItem(STORE); if(raw){ var s = JSON.parse(raw); if(s && Array.isArray(s.tools)) state = s; } }catch(e){}
+    if(!state.meta) state.meta = {biz:"",reviewer:"",date:""};
+  }
+  function save(){ try{ localStorage.setItem(STORE, JSON.stringify(state)); }catch(e){} }
+
+  // ---------- scoring ----------
+  // Each rule adds points and (if it fires) a plain-language finding with a fix.
+  function assess(t){
+    var pts = 0, flags = [];
+    var data = t.data || [];
+    var sensitive = data.filter(function(d){ return d==="customer"||d==="financial"||d==="employee"||d==="accounts"; });
+    var w = {customer:3,financial:3,employee:2,accounts:4,internal:1,unknown:2};
+    data.forEach(function(d){ pts += w[d]||0; });
+
+    if(data.indexOf("accounts")>-1) flags.push({sev:3,t:"It can reach passwords or account access.",fix:"Give it its own limited login instead of a shared or admin one, and remove access it doesn't need."});
+    if(data.indexOf("unknown")>-1) flags.push({sev:2,t:"Nobody is sure what information it can see.",fix:"Open its settings or connected apps list and write down exactly what it's connected to."});
+
+    var autoPts = {read:0,draft:1,act:4,unknown:3}[t.auto]||0; pts += autoPts;
+    var revPts = {always:0,spot:1,rare:3,never:4}[t.review]||0; pts += revPts;
+
+    if(t.auto==="act" && (t.review==="rare"||t.review==="never")){
+      pts += 3;
+      flags.push({sev:4,t:"It takes actions on its own and nobody regularly checks what it did.",fix:"Switch it to “draft for approval” where possible, or set a weekly 10-minute review of its activity log."});
+    } else if(t.auto==="act"){
+      flags.push({sev:2,t:"It can act without asking first.",fix:"Confirm which actions are truly safe to automate and require approval for anything that sends money or messages customers."});
+    }
+    if(t.auto==="unknown") flags.push({sev:2,t:"It's unclear whether it can take actions by itself.",fix:"Check whether it can send, post, edit or pay — and note the answer here."});
+    if((t.review==="rare"||t.review==="never") && t.auto!=="act" && sensitive.length) flags.push({sev:2,t:"Its output touches sensitive information but is rarely checked.",fix:"Pick a simple rule, like a person reads anything that goes to a customer before it's sent."});
+
+    if(!String(t.owner||"").trim()){ pts += 2; flags.push({sev:2,t:"No one is named as responsible for it.",fix:"Name one person who owns it: they watch the settings, the bill and the output."}); }
+
+    var acctPts = {business:0,personal:3,unknown:2}[t.acct]||0; pts += acctPts;
+    if(t.acct==="personal") flags.push({sev:sensitive.length?3:2,t:"It runs on someone's personal account.",fix:"Move it to a business-owned account so the business keeps control if that person leaves."});
+    if(t.acct==="unknown") flags.push({sev:1,t:"Not sure whose account it's on.",fix:"Find out who pays for it and who can log in."});
+
+    var permPts = {recent:0,year:1,never:2}[t.perm]||0; pts += permPts;
+    if(t.perm==="never") flags.push({sev:1,t:"Its permissions haven't been reviewed in over a year (or ever).",fix:"Put a recurring reminder on the calendar: review AI tool settings every quarter."});
+
+    var offPts = {yes:0,maybe:1,no:3}[t.off]||0; pts += offPts;
+    if(t.off!=="yes" && (t.auto==="act"||sensitive.length)) flags.push({sev:t.off==="no"?2:1,t:"There's no clear way to switch it off fast.",fix:"Write a two-line “off switch” note: where to disconnect it and who has the login."});
+
+    flags.sort(function(a,b){ return b.sev-a.sev; });
+    var level = pts>=12 ? "high" : pts>=6 ? "med" : "low";
+    return {pts:pts, level:level, flags:flags};
+  }
+  var LEVEL_TEXT = {high:"Needs attention",med:"Worth a look",low:"Looking good"};
+
+  // ---------- helpers ----------
+  function $(id){ return document.getElementById(id); }
+  function esc(s){ return String(s==null?"":s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];}); }
+  function uid(){ return Date.now().toString(36)+Math.random().toString(36).slice(2,7); }
+
+  function readForm(){
+    var data = Array.prototype.map.call($("f_data").querySelectorAll("input:checked"),function(i){return i.value;});
+    return {name:$("f_name").value.trim(),type:$("f_type").value,use:$("f_use").value.trim(),data:data,auto:$("f_auto").value,review:$("f_review").value,owner:$("f_owner").value.trim(),acct:$("f_acct").value,perm:$("f_perm").value,off:$("f_off").value,notes:$("f_notes").value.trim()};
+  }
+  function fillForm(t){
+    $("f_name").value=t.name||""; $("f_type").value=t.type||"chat"; $("f_use").value=t.use||"";
+    Array.prototype.forEach.call($("f_data").querySelectorAll("input"),function(i){ i.checked=(t.data||[]).indexOf(i.value)>-1; });
+    $("f_auto").value=t.auto||"read"; $("f_review").value=t.review||"always"; $("f_owner").value=t.owner||"";
+    $("f_acct").value=t.acct||"business"; $("f_perm").value=t.perm||"recent"; $("f_off").value=t.off||"yes"; $("f_notes").value=t.notes||"";
+  }
+  function resetForm(){
+    $("toolForm").reset(); editingId=null;
+    $("saveBtn").textContent="Add tool"; $("formTitle").textContent="Add an AI tool"; $("cancelEdit").hidden=true;
+  }
+
+  // ---------- render ----------
+  function render(){
+    var list = $("toolList"), sum = $("summary");
+    var results = state.tools.map(function(t){ return {t:t,a:assess(t)}; });
+    results.sort(function(x,y){ return y.a.pts-x.a.pts; });
+
+    if(!results.length){
+      list.innerHTML = '<div class="empty">No tools yet. Start with the one your business relies on most.</div>';
+      sum.innerHTML = ""; $("resultsSub").textContent = "Add a tool to see its oversight score."; renderPrintHeader(); return;
+    }
+    var c = {high:0,med:0,low:0}; results.forEach(function(r){ c[r.a.level]++; });
+    $("resultsSub").textContent = results.length+" tool"+(results.length>1?"s":"")+" reviewed, riskiest first.";
+
+    // Top priorities across all tools: highest-severity findings, one per tool, max 3
+    var pri = [];
+    results.forEach(function(r){ if(r.a.flags.length && r.a.flags[0].sev>=2) pri.push({tool:r.t.name, f:r.a.flags[0], pts:r.a.pts}); });
+    pri = pri.slice(0,3);
+
+    sum.innerHTML =
+      '<div class="summary">'+
+        '<div class="stat"><div class="n">'+results.length+'</div><div class="l">AI tools listed</div></div>'+
+        '<div class="stat high"><div class="n">'+c.high+'</div><div class="l">Need attention</div></div>'+
+        '<div class="stat med"><div class="n">'+c.med+'</div><div class="l">Worth a look</div></div>'+
+        '<div class="stat low"><div class="n">'+c.low+'</div><div class="l">Looking good</div></div>'+
+      '</div>'+
+      (pri.length ? '<div class="tool" style="background:var(--bg)"><h3>Start here</h3><ol class="priorities" style="margin-top:8px">'+
+        pri.map(function(p){ return '<li><strong>'+esc(p.tool)+':</strong> '+esc(p.f.fix)+'</li>'; }).join("")+'</ol></div>' : "");
+
+    list.innerHTML = results.map(function(r){
+      var t=r.t, a=r.a;
+      var dataTxt = (t.data&&t.data.length) ? t.data.map(function(d){return DATA_LABELS[d];}).join(", ") : "Nothing sensitive";
+      return '<article class="tool" data-id="'+esc(t.id)+'">'+
+        '<div class="tool-top"><div><h3>'+esc(t.name||"Untitled tool")+'</h3>'+
+        '<p class="tool-meta">'+esc(TYPE_LABELS[t.type]||"")+(t.use?' · '+esc(t.use):'')+'</p>'+
+        '<p class="tool-meta">Sees: '+esc(dataTxt)+' · '+esc(AUTO_LABELS[t.auto]||"")+' · Owner: '+esc(t.owner||"none named")+'</p></div>'+
+        '<div style="text-align:right"><span class="badge '+a.level+'">'+LEVEL_TEXT[a.level]+' · '+a.pts+'</span>'+
+        '<div class="tool-actions no-print" style="margin-top:8px;justify-content:flex-end"><button class="linkbtn" data-act="edit">Edit</button><button class="linkbtn" data-act="del">Remove</button></div></div></div>'+
+        (a.flags.length ? '<ul class="flags">'+a.flags.map(function(f){ return '<li><b>'+esc(f.t)+'</b><small>Fix: '+esc(f.fix)+'</small></li>'; }).join("")+'</ul>'
+                        : '<ul class="flags"><li><b>No gaps found.</b><small>Re-check it next quarter or whenever its features change.</small></li></ul>')+
+        (t.notes?'<p class="tool-meta" style="margin-top:8px">Notes: '+esc(t.notes)+'</p>':'')+
+      '</article>';
+    }).join("");
+    renderPrintHeader();
+  }
+  function renderPrintHeader(){
+    var m=state.meta, bits=[];
+    if(m.biz) bits.push("<strong>"+esc(m.biz)+"</strong>");
+    if(m.reviewer) bits.push("Reviewed by "+esc(m.reviewer));
+    if(m.date) bits.push(esc(m.date));
+    $("printHeader").innerHTML = bits.join(" · ");
+  }
+
+  // ---------- events ----------
+  $("toolForm").addEventListener("submit",function(e){
+    e.preventDefault();
+    var t = readForm();
+    if(!t.name){ $("formMsg").textContent="Give the tool a name first."; $("f_name").focus(); return; }
+    if(editingId){
+      t.id = editingId;
+      state.tools = state.tools.map(function(x){ return x.id===editingId ? t : x; });
+      $("formMsg").textContent = "Updated "+t.name+".";
+    } else {
+      t.id = uid(); state.tools.push(t);
+      $("formMsg").textContent = "Added "+t.name+".";
+    }
+    save(); resetForm(); render();
+  });
+  $("cancelEdit").addEventListener("click",function(){ resetForm(); $("formMsg").textContent=""; });
+
+  $("toolList").addEventListener("click",function(e){
+    var btn = e.target.closest("button[data-act]"); if(!btn) return;
+    var id = btn.closest(".tool").getAttribute("data-id");
+    var t = state.tools.filter(function(x){return x.id===id;})[0]; if(!t) return;
+    if(btn.getAttribute("data-act")==="edit"){
+      editingId=id; fillForm(t);
+      $("saveBtn").textContent="Save changes"; $("formTitle").textContent="Edit "+t.name; $("cancelEdit").hidden=false;
+      $("formCard").scrollIntoView({behavior:"smooth",block:"start"}); $("f_name").focus({preventScroll:true});
+    } else if(confirm("Remove "+t.name+" from the list?")){
+      state.tools = state.tools.filter(function(x){return x.id!==id;}); save(); render();
+    }
+  });
+
+  ["bizName","reviewer","reviewDate"].forEach(function(id){
+    $(id).addEventListener("input",function(){
+      state.meta = {biz:$("bizName").value, reviewer:$("reviewer").value, date:$("reviewDate").value}; save(); renderPrintHeader();
+    });
+  });
+
+  $("printBtn").addEventListener("click",function(){ window.print(); });
+  $("exportBtn").addEventListener("click",function(){
+    var blob = new Blob([JSON.stringify(state,null,2)],{type:"application/json"});
+    var a = document.createElement("a"); a.href = URL.createObjectURL(blob);
+    a.download = "ai-oversight-checklist"+(state.meta.date?"-"+state.meta.date:"")+".json";
+    document.body.appendChild(a); a.click(); setTimeout(function(){ URL.revokeObjectURL(a.href); a.remove(); },0);
+  });
+  $("importBtn").addEventListener("click",function(){ $("importFile").click(); });
+  $("importFile").addEventListener("change",function(){
+    var f = this.files && this.files[0]; if(!f) return;
+    var r = new FileReader();
+    r.onload = function(){
+      try{
+        var s = JSON.parse(r.result);
+        if(!s || !Array.isArray(s.tools)) throw new Error("bad");
+        state = {meta:s.meta||{biz:"",reviewer:"",date:""}, tools:s.tools.map(function(t){ t.id=t.id||uid(); return t; })};
+        save(); hydrateMeta(); render(); $("formMsg").textContent="Imported "+state.tools.length+" tools.";
+      }catch(e){ alert("That file doesn't look like an exported checklist."); }
+    };
+    r.readAsText(f); this.value="";
+  });
+  $("clearBtn").addEventListener("click",function(){
+    if(confirm("Clear all tools and review details from this browser?")){ state={meta:{biz:"",reviewer:"",date:""},tools:[]}; save(); hydrateMeta(); resetForm(); render(); }
+  });
+
+  function hydrateMeta(){
+    $("bizName").value=state.meta.biz||""; $("reviewer").value=state.meta.reviewer||"";
+    $("reviewDate").value=state.meta.date||new Date().toISOString().slice(0,10);
+    state.meta.date=$("reviewDate").value;
+  }
+
+  load(); hydrateMeta(); render();
+})();
+</script>
+</body>
+</html>
