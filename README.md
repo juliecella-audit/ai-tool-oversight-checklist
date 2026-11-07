@@ -2,6 +2,8 @@
 
 A free, private self-check for small businesses: list the AI tools you use, answer a few plain questions about each one, and see where nobody is checking their work.
 
+**Try it:** https://juliecella-audit.github.io/ai-tool-oversight-checklist/
+
 Companion to the post [AI Agents Are Getting More Powerful. Who's Checking Their Work?](https://juliecella.com/2026/11/01/ai-agents-who-is-checking-their-work/) by [Julie Cella](https://juliecella.com).
 
 ## What it does
@@ -23,14 +25,11 @@ You can print the results or save them as a PDF, and export or import your list 
 
 Everything runs in your browser. Nothing you type is sent anywhere; your list is saved only in this browser's local storage. Use **Export** to keep a copy.
 
-## Publish it with GitHub Pages
+## Hosting
 
-1. In this repository, go to **Settings → Pages**.
-2. Under **Build and deployment**, set **Source** to *Deploy from a branch*.
-3. Choose the `main` branch and the `/ (root)` folder, then **Save**.
-4. After a minute or two the site is live at `https://<your-username>.github.io/juliecella-audit/`.
+The site is published with GitHub Pages from the `main` branch (root folder) at https://juliecella-audit.github.io/ai-tool-oversight-checklist/. Any change pushed to `main` goes live within a minute or two.
 
-To embed it on juliecella.com, link to that address from a post or page (or use a Custom HTML block with an `<iframe>` if your plan allows it).
+The whole tool is a single `index.html` file with no build step, so you can also download it and open it directly in a browser, or host it anywhere that serves static files.
 
 ## How the score works
 
